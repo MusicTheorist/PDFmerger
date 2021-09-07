@@ -92,7 +92,6 @@ public class PDFmerger {
 			}
 
 			int errors = 0;
-
 			for(File page : pages) {
 				try {
 					PDFmerger.addSource(page);
