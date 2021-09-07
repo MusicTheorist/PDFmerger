@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="create_run_jar" name="Create Runnable Jar for Project Stitch Multiple PDFs Together with Jar-in-Jar Loader">
+    <!--this file was created by Eclipse Runnable JAR file Export Wizard-->
+    <!--ANT 1.7 is required-->
+    <!--define folder properties-->
+    <property name="dir.buildfile" value="."/>
+    <property name="dir.workspace" value="/Users/John/eclipse-workspace"/>
+    <property name="dir.jarfile" value="${dir.buildfile}"/>
+    <target name="create_run_jar">
+        <jar destfile="${dir.jarfile}/PDFmerger.jar">
+            <manifest>
+                <attribute name="Main-Class" value="org.eclipse.jdt.internal.jarinjarloader.JarRsrcLoader"/>
+                <attribute name="Rsrc-Main-Class" value="pdfutil.PDFmerger"/>
+                <attribute name="Class-Path" value="."/>
+                <attribute name="Rsrc-Class-Path" value="./ commons-logging-1.2.jar commons-logging-1.2-javadoc.jar fontbox-2.0.13.jar pdfbox-2.0.13.jar pdfbox-debugger-2.0.13.jar pdfbox-tools-2.0.13.jar preflight-2.0.13.jar xmpbox-2.0.13.jar"/>
+            </manifest>
+            <zipfileset src="jar-in-jar-loader.zip"/>
+            <fileset dir="/Volumes/Windows/eclipse-workplace/Java/Stitch Multiple PDFs Together/bin"/>
+            <zipfileset dir="/Volumes/Windows/eclipse-workplace/Java/Stitch Multiple PDFs Together/pdfbox" includes="commons-logging-1.2.jar"/>
+            <zipfileset dir="/Volumes/Windows/eclipse-workplace/Java/Stitch Multiple PDFs Together/pdfbox" includes="commons-logging-1.2-javadoc.jar"/>
+            <zipfileset dir="/Volumes/Windows/eclipse-workplace/Java/Stitch Multiple PDFs Together/pdfbox" includes="fontbox-2.0.13.jar"/>
+            <zipfileset dir="/Volumes/Windows/eclipse-workplace/Java/Stitch Multiple PDFs Together/pdfbox" includes="pdfbox-2.0.13.jar"/>
+            <zipfileset dir="/Volumes/Windows/eclipse-workplace/Java/Stitch Multiple PDFs Together/pdfbox" includes="pdfbox-debugger-2.0.13.jar"/>
+            <zipfileset dir="/Volumes/Windows/eclipse-workplace/Java/Stitch Multiple PDFs Together/pdfbox" includes="pdfbox-tools-2.0.13.jar"/>
+            <zipfileset dir="/Volumes/Windows/eclipse-workplace/Java/Stitch Multiple PDFs Together/pdfbox" includes="preflight-2.0.13.jar"/>
+            <zipfileset dir="/Volumes/Windows/eclipse-workplace/Java/Stitch Multiple PDFs Together/pdfbox" includes="xmpbox-2.0.13.jar"/>
+        </jar>
+    </target>
+</project>
