@@ -28,94 +28,94 @@ import org.apache.pdfbox.multipdf.PDFMergerUtility;
  */
 
 public class PDFmerger {
-	public static void main(String[] args) {
-		JFileChooser chooser = new JFileChooser();
-		chooser.setMultiSelectionEnabled(true);
+    public static void main(String[] args) {
+        JFileChooser chooser = new JFileChooser();
+        chooser.setMultiSelectionEnabled(true);
 
-		FileNameExtensionFilter filter = new FileNameExtensionFilter("PDF Document", "pdf");
-		chooser.setFileFilter(filter);
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("PDF Document", "pdf");
+        chooser.setFileFilter(filter);
 
-		boolean morePages = true;
-		ArrayList<File> pages = new ArrayList<File>();
+        boolean morePages = true;
+        ArrayList<File> pages = new ArrayList<File>();
 
-		do {
-			int newPage = chooser.showDialog(null, "Add Page(s)");
+        do {
+            int newPage = chooser.showDialog(null, "Add Page(s)");
 
-			int wrongTypes = 0;
-			for(File page : chooser.getSelectedFiles()) {
-				String extension = "";
-				String fileName = page.getName();
+            int wrongTypes = 0;
+            for(File page : chooser.getSelectedFiles()) {
+                String extension = "";
+                String fileName = page.getName();
 
-				int i = fileName.lastIndexOf('.');
-				if (i > 0) {
-					extension = fileName.substring(i + 1);
-				}
+                int i = fileName.lastIndexOf('.');
+                if (i > 0) {
+                    extension = fileName.substring(i + 1);
+                }
 
-				if((extension.toLowerCase()).equals("pdf")) {
-					pages.add(page);
-				}
-				else {
-					String errorMsg = page.getAbsolutePath() + " doesn't appear to be a PDF!";
-					JOptionPane.showMessageDialog(null, errorMsg, "Wrong file extension", JOptionPane.WARNING_MESSAGE);
-					wrongTypes++;
-				}
-			}
+                if((extension.toLowerCase()).equals("pdf")) {
+                    pages.add(page);
+                }
+                else {
+                    String errorMsg = page.getAbsolutePath() + " doesn't appear to be a PDF!";
+                    JOptionPane.showMessageDialog(null, errorMsg, "Wrong file extension", JOptionPane.WARNING_MESSAGE);
+                    wrongTypes++;
+                }
+            }
 
-			if(wrongTypes == chooser.getSelectedFiles().length) {
-				newPage = JFileChooser.ERROR_OPTION;
-			}
+            if(wrongTypes == chooser.getSelectedFiles().length) {
+                newPage = JFileChooser.ERROR_OPTION;
+            }
 
-			if(newPage == JFileChooser.APPROVE_OPTION) {
-				int notDone = JOptionPane.showConfirmDialog(null, "Would you like to add more pages?", "More Pages", JOptionPane.YES_NO_OPTION);
+            if(newPage == JFileChooser.APPROVE_OPTION) {
+                int notDone = JOptionPane.showConfirmDialog(null, "Would you like to add more pages?", "More Pages", JOptionPane.YES_NO_OPTION);
 
-				if(notDone == JOptionPane.NO_OPTION) {
-					morePages = false;
-				}
-			}
-			else {
-				morePages = false;
-			}
-		} while(morePages);
+                if(notDone == JOptionPane.NO_OPTION) {
+                    morePages = false;
+                }
+            }
+            else if(newPage != JFileChooser.ERROR_OPTION) {
+                morePages = false;
+            }
+        } while(morePages);
 
-		if(pages.size() > 0) {
-			int savePages = chooser.showSaveDialog(null);
+        if(pages.size() > 0) {
+            int savePages = chooser.showSaveDialog(null);
 
-			File destination;
-			PDFMergerUtility PDFmerger = new PDFMergerUtility();
+            File destination;
+            PDFMergerUtility PDFmerger = new PDFMergerUtility();
 
-			if(savePages == JFileChooser.APPROVE_OPTION) {
-				destination = chooser.getSelectedFile();
-				PDFmerger.setDestinationFileName(destination.getAbsolutePath());
-			}
-			else {
-				PDFmerger.setDestinationFileName("output/mergedPDF.pdf");
-			}
+            if(savePages == JFileChooser.APPROVE_OPTION) {
+                destination = chooser.getSelectedFile();
+                PDFmerger.setDestinationFileName(destination.getAbsolutePath());
+            }
+            else {
+                PDFmerger.setDestinationFileName("output/mergedPDF.pdf");
+            }
 
-			int errors = 0;
-			for(File page : pages) {
-				try {
-					PDFmerger.addSource(page);
-				}
-				catch (FileNotFoundException e) {
-					String errorMsg = "Couldn't open " + page.getAbsolutePath() + "! Check if the file was moved or deleted.";
-					JOptionPane.showMessageDialog(null, errorMsg, "Failed to open PDF", JOptionPane.WARNING_MESSAGE);
-					errors++;
-				}
-			}
+            int errors = 0;
+            for(File page : pages) {
+                try {
+                    PDFmerger.addSource(page);
+                }
+                catch (FileNotFoundException e) {
+                    String errorMsg = "Couldn't open " + page.getAbsolutePath() + "! Check if the file was moved or deleted.";
+                    JOptionPane.showMessageDialog(null, errorMsg, "Failed to open PDF", JOptionPane.WARNING_MESSAGE);
+                    errors++;
+                }
+            }
 
-			if(errors == pages.size()) {
-				JOptionPane.showMessageDialog(null, "Couldn't open any of your PDFs! Make sure the files' folder wasn't moved or deleted.", "Failed to open all PDFs", JOptionPane.ERROR_MESSAGE);
-			}
-			else {
-				try {
-					PDFmerger.mergeDocuments(null);
-					String successMsg = "Success! PDF saved to " + PDFmerger.getDestinationFileName();
-					JOptionPane.showMessageDialog(null, successMsg, "PDF successfully combined", JOptionPane.INFORMATION_MESSAGE);
-				}
-				catch (IOException e) {
-					JOptionPane.showMessageDialog(null, "Couldn't save your combined PDF file! Make sure you have permission and enough empty space to save files on your computer.", "Failed to save PDF", JOptionPane.ERROR_MESSAGE);
-				}
-			}
-		}
-	}
+            if(errors == pages.size()) {
+                JOptionPane.showMessageDialog(null, "Couldn't open any of your PDFs! Make sure the files' folder wasn't moved or deleted.", "Failed to open all PDFs", JOptionPane.ERROR_MESSAGE);
+            }
+            else {
+                try {
+                    PDFmerger.mergeDocuments(null);
+                    String successMsg = "Success! PDF saved to " + PDFmerger.getDestinationFileName();
+                    JOptionPane.showMessageDialog(null, successMsg, "PDF successfully combined", JOptionPane.INFORMATION_MESSAGE);
+                }
+                catch (IOException e) {
+                    JOptionPane.showMessageDialog(null, "Couldn't save your combined PDF file! Make sure you have permission and enough empty space to save files on your computer.", "Failed to save PDF", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
+    }
 }
