@@ -61,7 +61,7 @@ public class PDFmerger {
                 }
             }
 
-            if(wrongTypes == chooser.getSelectedFiles().length) {
+            if(wrongTypes > 0 && wrongTypes == chooser.getSelectedFiles().length) {
                 newPage = JFileChooser.ERROR_OPTION;
             }
 
