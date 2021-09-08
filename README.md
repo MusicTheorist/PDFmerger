@@ -1,4 +1,4 @@
-# PDFMerger
+# PDFmerger
 Simple tool written in Java for merging multiple PDF files together. Supports multiple selection. Uses PDFBox and Swing.
 
 * /dist - runnable JAR and build files
@@ -12,3 +12,6 @@ Simple tool written in Java for merging multiple PDF files together. Supports mu
 - you can now customize where the combined PDF will be saved
 - individual PDFs are now checked for errors
 - all error and info messages are much more descriptive now
+
+- accidentally choosing all non-PDF files triggers the "add page(s)" dialog again
+- much improved indentation
