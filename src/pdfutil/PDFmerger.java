@@ -80,11 +80,10 @@ public class PDFmerger {
         if(pages.size() > 0) {
             int savePages = chooser.showSaveDialog(null);
 
-            File destination;
             PDFMergerUtility PDFmerger = new PDFMergerUtility();
 
             if(savePages == JFileChooser.APPROVE_OPTION) {
-                destination = chooser.getSelectedFile();
+                File destination = chooser.getSelectedFile();
                 PDFmerger.setDestinationFileName(destination.getAbsolutePath());
             }
             else {
