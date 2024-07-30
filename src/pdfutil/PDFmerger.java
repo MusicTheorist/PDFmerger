@@ -28,6 +28,11 @@ import org.apache.pdfbox.multipdf.PDFMergerUtility;
  */
 
 public class PDFmerger {
+    private static final String DEFAULT_FILENAME = "output/Merged PDFs.pdf";
+    
+    private static final String TYPE = ".pdf";
+    private static final int TYPE_LEN = 4;
+    
     public static void main(String[] args) {
         JFileChooser chooser = new JFileChooser();
         chooser.setMultiSelectionEnabled(true);
@@ -78,16 +83,22 @@ public class PDFmerger {
         } while(morePages);
 
         if(pages.size() > 0) {
+            chooser.setSelectedFile(new File(DEFAULT_FILENAME));
             int savePages = chooser.showSaveDialog(null);
 
             PDFMergerUtility PDFmerger = new PDFMergerUtility();
 
             if(savePages == JFileChooser.APPROVE_OPTION) {
                 File destination = chooser.getSelectedFile();
+                String path = destination.getAbsolutePath();
+                String suffix = path.substring(path.length() - TYPE_LEN).toLowerCase();
+                if(!suffix.contentEquals(TYPE)) {
+                    destination = new File(path + TYPE);
+                }
                 PDFmerger.setDestinationFileName(destination.getAbsolutePath());
             }
             else {
-                PDFmerger.setDestinationFileName("output/mergedPDF.pdf");
+                return;
             }
 
             int errors = 0;
