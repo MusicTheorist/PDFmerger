@@ -6,6 +6,10 @@ Simple tool written in Java for merging multiple PDF files together. Supports mu
 * /pdfbox - Adobe PDFBox API
 * /src - source code folder
 
+### 10/21/25 quality-of-life update: ###
+- ability to merge multiple PDFs one after another
+- refactored code
+
 ### 7/29/24 quality-of-life update: ###
 - added a default exported file name to save dialog
 - if an exported file is missing a ".pdf" extension, the program now automatically adds it
